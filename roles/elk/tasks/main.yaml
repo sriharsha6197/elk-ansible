@@ -20,7 +20,6 @@
   ansible.builtin.dnf:
     name: nginx
     state: installed
-    enabled: yes
 
 - name: start nginx
   ansible.builtin.systemd:
