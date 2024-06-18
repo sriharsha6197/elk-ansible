@@ -1,5 +1,5 @@
 - name: copy elasticsearch repo
-  ansible.builtin.template:
+  ansible.builtin.copy:
     src: elastic.repo
     dest: /etc/yum.repos.d/elastic.repo
 
