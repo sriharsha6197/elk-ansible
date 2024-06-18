@@ -7,7 +7,6 @@
   ansible.builtin.dnf:
     name: elasticsearch
     state: installed
-
 - name: start elasticsearch
   ansible.builtin.systemd:
     name: elasticsearch
@@ -15,14 +14,41 @@
     state: started
     daemon-reload: yes
 
+- name: install logstash
+  ansible.builtin.dnf:
+    name: logstash
+    state: installed
+- name: copy logstash configuration
+  ansible.builtin.template:
+    src: logstash.conf
+    dest: /etc/logstash/conf.d/logstash.conf
+- name: start logstash
+  ansible.builtin.systemd:
+    name: logstash
+    enabled: yes
+    state: started
+
+- name: install kibana
+  ansible.builtin.dnf:
+    name: kibana
+    state: installed
+- name: start kibana
+  ansible.builtin.systemd:
+    name: kibana 
+    enabled: yes
+    state: started
 
 - name: install nginx
   ansible.builtin.dnf:
     name: nginx
     state: installed
-
+- name: copy nginx configuration
+  ansible.builtin.template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf  
 - name: start nginx
   ansible.builtin.systemd:
     name: nginx
-    state: started
     enabled: yes
+    state: started
+
