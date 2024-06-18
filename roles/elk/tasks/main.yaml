@@ -7,6 +7,21 @@
   ansible.builtin.dnf:
     name: elasticsearch
     state: installed
+
+- name: install nginx
+  ansible.builtin.dnf:
+    name: nginx
+    state: installed
+- name: copy nginx configuration
+  ansible.builtin.template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf  
+- name: start nginx
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: yes
+    state: started
+
 - name: start elasticsearch
   ansible.builtin.systemd:
     name: elasticsearch
@@ -35,20 +50,6 @@
 - name: start kibana
   ansible.builtin.systemd:
     name: kibana 
-    enabled: yes
-    state: started
-
-- name: install nginx
-  ansible.builtin.dnf:
-    name: nginx
-    state: installed
-- name: copy nginx configuration
-  ansible.builtin.template:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf  
-- name: start nginx
-  ansible.builtin.systemd:
-    name: nginx
     enabled: yes
     state: started
 
